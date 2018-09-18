@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Parse.initialize(
+            with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
+                configuration.applicationId = "Instagram"
+                configuration.clientKey = "mongodb://heroku_lxfxk0bn:gcj1r2j3ppauqvb6ups9l0lana@ds261332.mlab.com:61332/heroku_lxfxk0bn"  // set to nil assuming you have not set clientKey
+                configuration.server = "https://boiling-caverns-20339.herokuapp.com/parse"
+            })
+        )
         return true
     }
 
