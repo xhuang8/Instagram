@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B19E6CE215817FE005895DF /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19E6CD215817FE005895DF /* PostCell.swift */; };
+		0B19E6D121582399005895DF /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19E6D021582399005895DF /* Post.swift */; };
 		0B28684321509B8300185143 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B28684221509B8300185143 /* LoginViewController.swift */; };
+		0B306F09215338E100DCE504 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B306F08215338E100DCE504 /* HomeViewController.swift */; };
+		0B508F6E21548FE1006571BA /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B508F6D21548FE1006571BA /* ComposeViewController.swift */; };
+		0B508F7021549176006571BA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B508F6F21549176006571BA /* ProfileViewController.swift */; };
 		0BFC715C21507A890004956E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFC715B21507A890004956E /* AppDelegate.swift */; };
 		0BFC715E21507A890004956E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFC715D21507A890004956E /* ViewController.swift */; };
 		0BFC716121507A890004956E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BFC715F21507A890004956E /* Main.storyboard */; };
@@ -38,7 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B19E6CD215817FE005895DF /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		0B19E6D021582399005895DF /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0B28684221509B8300185143 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0B306F08215338E100DCE504 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0B508F6D21548FE1006571BA /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
+		0B508F6F21549176006571BA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0BEFED115D87457BC6EF34A4 /* Pods-Instagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram/Pods-Instagram.release.xcconfig"; sourceTree = "<group>"; };
 		0BFC715821507A890004956E /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFC715B21507A890004956E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +101,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B19E6CC215817E1005895DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B19E6CD215817FE005895DF /* PostCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0B19E6CF21582384005895DF /* ViewsModule */ = {
+			isa = PBXGroup;
+			children = (
+				0B19E6D021582399005895DF /* Post.swift */,
+			);
+			path = ViewsModule;
+			sourceTree = "<group>";
+		};
+		0B7996B42155CAFE00647305 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0B28684221509B8300185143 /* LoginViewController.swift */,
+				0B306F08215338E100DCE504 /* HomeViewController.swift */,
+				0B508F6D21548FE1006571BA /* ComposeViewController.swift */,
+				0B508F6F21549176006571BA /* ProfileViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		0BFC714F21507A890004956E = {
 			isa = PBXGroup;
 			children = (
@@ -116,13 +153,15 @@
 		0BFC715A21507A890004956E /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				0B19E6CF21582384005895DF /* ViewsModule */,
+				0B19E6CC215817E1005895DF /* Views */,
+				0B7996B42155CAFE00647305 /* ViewController */,
 				0BFC715B21507A890004956E /* AppDelegate.swift */,
 				0BFC715D21507A890004956E /* ViewController.swift */,
 				0BFC715F21507A890004956E /* Main.storyboard */,
 				0BFC716221507A8A0004956E /* Assets.xcassets */,
 				0BFC716421507A8A0004956E /* LaunchScreen.storyboard */,
 				0BFC716721507A8A0004956E /* Info.plist */,
-				0B28684221509B8300185143 /* LoginViewController.swift */,
 			);
 			path = Instagram;
 			sourceTree = "<group>";
@@ -326,11 +365,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Instagram/Pods-Instagram-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/ParseUI/ParseUI.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseUI.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -380,9 +421,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B19E6CE215817FE005895DF /* PostCell.swift in Sources */,
+				0B508F7021549176006571BA /* ProfileViewController.swift in Sources */,
+				0B508F6E21548FE1006571BA /* ComposeViewController.swift in Sources */,
 				0B28684321509B8300185143 /* LoginViewController.swift in Sources */,
 				0BFC715E21507A890004956E /* ViewController.swift in Sources */,
+				0B19E6D121582399005895DF /* Post.swift in Sources */,
 				0BFC715C21507A890004956E /* AppDelegate.swift in Sources */,
+				0B306F09215338E100DCE504 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
