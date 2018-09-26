@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Alamofire
 
 class ProfileViewController: UIViewController {
 

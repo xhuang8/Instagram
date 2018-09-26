@@ -9,49 +9,90 @@
 import UIKit
 import Parse
 import Photos
+import Alamofire
 
 class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-
     
-    @IBOutlet weak var postImageView: UIImageView!
+    var selectedImage: UIImage?
     
-    @IBOutlet weak var captionTextField: UITextField!
+    let vc = UIImagePickerController()
     
-    
-    @IBAction func onCancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func onShare(_ sender: Any) {
-        Post.postUserImage(image: postImageView.image, withCaption: captionTextField.text, withCompletion: nil)
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
-    @objc func didTap(sender: UITapGestureRecognizer)
-    {
-        let vc = UIImagePickerController()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        check()
+        
         vc.delegate = self
         vc.allowsEditing = true
         vc.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
         self.present(vc, animated: true, completion: nil)
+        
+        
+        //let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTap(sender:)))
+        // postImageView.isUserInteractionEnabled = true
+        // postImageView.addGestureRecognizer(tapGestureRecognizer)
+        // Do any additional setup after loading the view.
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func check(){
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    /* do stuff here */
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            // same same
+            print("User do not have access to photo album.")
+        case .denied:
+            // same same
+            print("User has denied the permission.")
+        }
+    }
+   
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
+   @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         // Get the image captured by the UIImagePickerController
-        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        //let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        //let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
         
         // Do something with the images
-        postImageView.image = originalImage
-        
+        //postImageView.image = originalImage
+        selectedImage = editedImage
+    self.dismiss(animated: true, completion: nil)
+    self.performSegue(withIdentifier: "toCaptionSegue", sender: self)
         
         // Dismiss UIImagePickerController
-        dismiss(animated: true, completion: nil)
+      //  dismiss(animated: true, completion: nil)
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        dismiss(animated: true, completion: { () -> Void in
+            self.dismiss(animated: false, completion: nil)
+            
+            self.tabBarController?.selectedIndex = 0
+        })
+    }
     
+
+   /*
     func resize(image: UIImage, newSize: CGSize) -> UIImage {
         let resizeImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
         resizeImageView.contentMode = UIViewContentMode.scaleAspectFill
@@ -62,31 +103,24 @@ class ComposeViewController: UIViewController, UIImagePickerControllerDelegate, 
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage!
-    }
+    }*/
     
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTap(sender:)))
-        postImageView.isUserInteractionEnabled = true
-        postImageView.addGestureRecognizer(tapGestureRecognizer)
-        // Do any additional setup after loading the view.
+        if segue.identifier == "toCaptionSegue" {
+            let controller = segue.destination as! DetailViewController
+            let size = CGSize(width: 350.0, height: 350.0)
+        
+            //controller.postImage = self.selectedImage?.af_imageAspectScaled(toFit: size)
+           // controller.postImage = self.selectedImage?.af
+        }
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

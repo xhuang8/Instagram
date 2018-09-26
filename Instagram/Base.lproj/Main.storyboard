@@ -183,15 +183,15 @@
             </objects>
             <point key="canvasLocation" x="1888.8" y="133.5832083958021"/>
         </scene>
-        <!--Compose View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="Nur-Uj-I4y">
             <objects>
-                <viewController id="k64-gq-ROl" customClass="ComposeViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="k64-gq-ROl" customClass="DetailViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AtQ-24-VvN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-GJ-l2e">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-GJ-l2e">
                                 <rect key="frame" x="16" y="84" width="343" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -213,7 +213,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="onCancel:" destination="k64-gq-ROl" eventType="touchUpInside" id="1v2-0u-zY2"/>
+                                    <action selector="onCancel:" destination="k64-gq-ROl" eventType="touchUpInside" id="Zx3-gC-PoD"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -223,14 +223,15 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Share"/>
                                 <connections>
-                                    <action selector="onShare:" destination="k64-gq-ROl" eventType="touchUpInside" id="1Br-NK-0ws"/>
+                                    <action selector="postImage:" destination="k64-gq-ROl" eventType="touchUpInside" id="YwA-Qw-Ucp"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="captionTextField" destination="khW-3w-uYu" id="Jxw-dY-aKK"/>
-                        <outlet property="postImageView" destination="vO5-GJ-l2e" id="cV0-Qi-hSw"/>
+                        <outlet property="captionMessage" destination="khW-3w-uYu" id="Vjq-Td-h6b"/>
+                        <outlet property="imageToPost" destination="vO5-GJ-l2e" id="JtY-g8-SCQ"/>
+                        <segue destination="212-Q9-sVb" kind="presentation" id="JFQ-zG-FlD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EhX-9M-qMx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -273,6 +274,25 @@
             </objects>
             <point key="canvasLocation" x="1888.8" y="924.28785607196414"/>
         </scene>
+        <!--Compose View Controller-->
+        <scene sceneID="5qe-Tn-R4E">
+            <objects>
+                <viewController id="H5Y-bK-Gl4" customClass="ComposeViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ufe-bf-CRS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="y9G-ug-2FD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JbV-3n-8sH"/>
+                    <connections>
+                        <segue destination="k64-gq-ROl" kind="show" identifier="toCaptionSegue" id="hlk-Ki-r5b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wli-ZV-gPW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2724" y="924"/>
+        </scene>
         <!--Compose-->
         <scene sceneID="DJu-Gf-fP9">
             <objects>
@@ -285,7 +305,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="k64-gq-ROl" kind="relationship" relationship="rootViewController" id="cD9-jK-9IT"/>
+                        <segue destination="H5Y-bK-Gl4" kind="relationship" relationship="rootViewController" id="Z6i-wr-RKc"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GGf-7V-8St" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -335,7 +355,11 @@
     </scenes>
     <resources>
         <image name="feed_tab" width="25" height="25"/>
+        <image name="image_placeholder" width="375" height="375"/>
         <image name="insta_camera_btn" width="25" height="25"/>
         <image name="profile_tab" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="JFQ-zG-FlD"/>
+    </inferredMetricsTieBreakers>
 </document>

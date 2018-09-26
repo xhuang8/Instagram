@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import ParseUI
+import Alamofire
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
