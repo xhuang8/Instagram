@@ -12,24 +12,19 @@ import ParseUI
 
 class PostCell: UITableViewCell {
 
-    @IBOutlet weak var postImageView: UIImageView!
-    @IBOutlet weak var captionLabel: UILabel!
     
-    /*var postData: PFObject? {
+    @IBOutlet weak var postImageView: PFImageView!
+    
+    @IBOutlet weak var captionLabel: UILabel!
+   
+    
+    var instagramPost: PFObject!{
         didSet{
-            self.captionLabel.text = postData?.value(forKey: "caption")as? String
-            if let postImage = postData?.value(forKey: "media") as? PFFile{
-                postImage.getDataInBackground(block: { (image: Data?, error: Error?) in
-                    if error == nil{
-                        self.postImageView.image = UIImage.init(data: image!)
-                    }else{
-                        print(error?.localizedDescription as Any)
-                    }
-                })
-            }
-        }
+            self.postImageView.file = instagramPost["image"] as? PFFile
+            self.postImageView.loadInBackground()
         
-    }*/
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

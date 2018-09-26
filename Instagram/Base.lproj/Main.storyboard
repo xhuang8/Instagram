@@ -127,8 +127,11 @@
                                                         <constraint firstAttribute="width" constant="320" id="NZD-9S-Dfa"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfQ-hc-h32">
-                                                    <rect key="frame" x="27.5" y="339" width="42" height="32"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a caption  for the pictures" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfQ-hc-h32">
+                                                    <rect key="frame" x="28" y="339" width="320" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="320" id="zfi-6j-z32"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -136,15 +139,15 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pfQ-hc-h32" firstAttribute="top" secondItem="rcP-zi-3Lj" secondAttribute="bottom" constant="8" id="2kb-pT-8hg"/>
-                                                <constraint firstItem="pfQ-hc-h32" firstAttribute="leading" secondItem="rcP-zi-3Lj" secondAttribute="leading" id="3EO-uE-bMh"/>
                                                 <constraint firstItem="rcP-zi-3Lj" firstAttribute="top" secondItem="n9x-HL-4sI" secondAttribute="topMargin" id="IcO-og-e1n"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="pfQ-hc-h32" secondAttribute="bottom" constant="8" id="O5G-ZZ-7bP"/>
                                                 <constraint firstItem="rcP-zi-3Lj" firstAttribute="centerX" secondItem="n9x-HL-4sI" secondAttribute="centerX" id="P40-ag-hf7"/>
+                                                <constraint firstItem="pfQ-hc-h32" firstAttribute="leading" secondItem="rcP-zi-3Lj" secondAttribute="leading" id="xUS-gO-kZU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="captionLabel" destination="pfQ-hc-h32" id="y3T-fN-abe"/>
-                                            <outlet property="postImageView" destination="rcP-zi-3Lj" id="GnH-an-6R5"/>
+                                            <outlet property="postImageView" destination="rcP-zi-3Lj" id="4hn-KL-ptK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -159,11 +162,16 @@
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="onLogout:" destination="1v8-EH-bHS" eventType="touchUpInside" id="f2R-p9-J35"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="logoutSegue" id="QIZ-Te-ikm"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="insta_camera_btn" style="plain" id="OBE-uD-iJ4">
                             <connections>
-                                <segue destination="zqn-f1-Bvm" kind="presentation" id="cpH-mj-xtu"/>
+                                <action selector="onCamera:" destination="1v8-EH-bHS" id="emC-BQ-Sve"/>
+                                <segue destination="zqn-f1-Bvm" kind="presentation" identifier="postSegue" id="cpH-mj-xtu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -184,16 +192,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-GJ-l2e">
-                                <rect key="frame" x="16" y="84" width="147" height="128"/>
+                                <rect key="frame" x="16" y="84" width="343" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Write a caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81v-wS-0wj">
-                                <rect key="frame" x="180" y="84" width="179" height="21"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="khW-3w-uYu">
+                                <rect key="frame" x="16" y="254" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="aZ1-sa-wWd"/>
@@ -204,6 +212,9 @@
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="onCancel:" destination="k64-gq-ROl" eventType="touchUpInside" id="1v2-0u-zY2"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="xHP-qg-IOl">
@@ -211,13 +222,20 @@
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="onShare:" destination="k64-gq-ROl" eventType="touchUpInside" id="1Br-NK-0ws"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="captionTextField" destination="khW-3w-uYu" id="Jxw-dY-aKK"/>
+                        <outlet property="postImageView" destination="vO5-GJ-l2e" id="cV0-Qi-hSw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EhX-9M-qMx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3527" y="134"/>
+            <point key="canvasLocation" x="3525.5999999999999" y="133.5832083958021"/>
         </scene>
         <!--Feed-->
         <scene sceneID="KW3-6c-sMV">
@@ -297,7 +315,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="51l-Q4-WXF">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="We0-3E-MBv" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="We0-3E-MBv" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tEa-IN-QPG">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

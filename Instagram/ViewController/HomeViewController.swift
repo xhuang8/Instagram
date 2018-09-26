@@ -8,12 +8,14 @@
 
 import UIKit
 import Parse
-//import ParseUI
+import ParseUI
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet weak var tableView: UITableView!
   
-    var  posts: [PFObject]!
+    var  posts: [Post] = []
+    
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -21,8 +23,8 @@ class HomeViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
-       // tableView.rowHeight  = UITableViewAutomaticDimension
-        //tableView.estimatedRowHeight = 200
+        tableView.rowHeight  = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 350
         
         
         refreshControl = UIRefreshControl()
@@ -33,10 +35,24 @@ class HomeViewController: UIViewController {
         //self.tableView.separatorStyle = .none
         // Do any additional setup after loading the view.
     }
-
+    
+    
+    
+    @IBAction func onLogout(_ sender: Any) {
+        PFUser.logOut()
+        performSegue(withIdentifier: "logoutSegue", sender: nil)
+    }
+    
+    
+    @IBAction func onCamera(_ sender: Any) {
+        performSegue(withIdentifier: "postSegue", sender: nil)
+    }
+    
+    
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl)
     {
        fetchHome()
+       refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,91 +63,46 @@ class HomeViewController: UIViewController {
     func fetchHome()
     {
         // construct query
-        let query = PFQuery(className: "Post")
-        query.addDescendingOrder("CreatedAt")
-        //query.order(byDescending: "_created_at")
-        //query.includeKey("author")
-        query.limit = 20
+        let query = Post.query()
+        query?.order(byDescending: "createdAt")
+        query?.includeKey("author")
+        query?.limit = 20
         
-        query.findObjectsInBackground(block: {(posts, err) in
-            if err != nil {
-                print(err?.localizedDescription as Any)
-                self.refreshControl.endRefreshing()
-            } else if let posts = posts {
-                self.posts = posts
-                self.tableView.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-        })
-        
-        // fetch data asynchronously
-       /* query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
-            //print("Got it !!")
+        query?.findObjectsInBackground(block: {(posts, error) in
             if let posts = posts {
-                // do something with the array of object returned by the call
-                self.posts = posts
+                self.posts = posts as! [Post]
                 self.tableView.reloadData()
             } else {
-                print(error!.localizedDescription)
+                print(error?.localizedDescription as Any)
             }
-            self.refreshControl.endRefreshing()
-        }
-       */
+        })
     }
     
-   /* func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
-        let post = posts[indexPath.row]
-        
-        if let imageObject = post["media"] as? PFFile {
-            imageObject.getDataInBackground(block: {
-                (imageFile: Data!, error: Error!) -> Void in
-                if error == nil {
-                    let image = UIImage(data: imageFile)
-                    cell.postImageView.image = image
-                }
-            })
-        }
-        
-        if let caption = post["caption"] as? String {
-            cell.captionLabel.text = caption
-        }
-        return cell
-    }*/
-    
-    
-}
-
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return posts.count
-    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return posts.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
         let post = posts[indexPath.row]
-        if let imageObject = post["media"] as? PFFile {
-            imageObject.getDataInBackground(block: {
-                (imageFile: Data!, error: Error!) -> Void in
+        
+        if let imageFile : PFFile = post.media {
+            imageFile.getDataInBackground(block: {
+                (data, error) in
                 if error == nil {
-                    let image = UIImage(data: imageFile)
-                    cell.postImageView.image = image
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data!)
+                        cell.postImageView.image = image
+                    }
+                }
+                else{
+                    print(error!.localizedDescription)
                 }
             })
         }
-        
-        if let caption = post["caption"] as? String {
-            cell.captionLabel.text = caption
-        }
+        cell.captionLabel.text = post.caption
         return cell
     }
-}
 
+}

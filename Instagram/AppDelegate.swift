@@ -25,6 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "https://boiling-caverns-20339.herokuapp.com/parse"
             })
         )
+        
+        //persiting user session
+        if PFUser.current() != nil {
+            //print("Welcome back \(currentUser.username!) 😀")
+            
+            // TODO: Load Chat view controller and set as root view controller
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let chatViewController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+            window?.rootViewController = chatViewController
+        }
         return true
     }
 
