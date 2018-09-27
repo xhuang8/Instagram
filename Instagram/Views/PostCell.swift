@@ -9,8 +9,6 @@
 import UIKit
 import Parse
 import ParseUI
-import Alamofire
-
 
 class PostCell: UITableViewCell {
 
@@ -24,9 +22,10 @@ class PostCell: UITableViewCell {
         didSet{
             postImageView.file = instagramPost["media"] as? PFFile
             captionLabel.text = instagramPost["caption"] as? String
+            postImageView.loadInBackground()
             //self.postImageView.file = instagramPost["image"] as? PFFile
-            self.postImageView.loadInBackground()
-        
+           // self.postImageView.loadInBackground()
+
         }
     }
     

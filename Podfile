@@ -7,8 +7,7 @@ target 'Instagram' do
 
   # Pods for Instagram
         pod 'Parse'
-        pod 'ParseUI'
-        pod 'AlamofireImage', '~> 3.3'
+        pod 'ParseUI' 
   target 'InstagramTests' do
     inherit! :search_paths
     # Pods for testing

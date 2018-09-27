@@ -8,7 +8,7 @@
 
 import UIKit
 import Parse
-import Alamofire
+//import Alamofire
 
 class LoginViewController: UIViewController {
 
@@ -62,17 +62,17 @@ class LoginViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
+ 
     
     @IBAction func onSignin(_ sender: Any) {
         
         let username = usernameField.text ?? ""
         let password = passwordField.text ?? ""
-        
-        PFUser.logInWithUsername(inBackground: usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: Error?) in
+    
+        PFUser.logInWithUsername(inBackground: username, password: password) { (user: PFUser?, error: Error?) in
             if let error = error {
                 if username.isEmpty || password.isEmpty{
-                    self.emptyAlert()
+                   self.emptyAlert()
                 }
                 print("User log in failed: \(error.localizedDescription)")
             } else {
@@ -81,8 +81,8 @@ class LoginViewController: UIViewController {
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         }
-        
     }
+    
     
     
     @IBAction func onSignup(_ sender: Any) {
@@ -91,27 +91,30 @@ class LoginViewController: UIViewController {
         
         newUser.username = usernameField.text
         newUser.password = passwordField.text
+        
         newUser.signUpInBackground{
             (success: Bool, error: Error?) in
-            
+          
             if let error = error {
                 if((newUser.username?.isEmpty)! || (newUser.password?.isEmpty)!){
-                    self.emptyAlert()
+                   self.emptyAlert()
                 }
-                switch error._code{
-                case 202:
-                    self.existAlert()
+               switch error._code{
+               case 202:
+                  self.existAlert()
                     break
-                default:
-                    break
+               default:
+                break
                 }
                 print(error.localizedDescription)
             }else {
                 print("Create a new account")
-               // self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         }
+    
     }
+        
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

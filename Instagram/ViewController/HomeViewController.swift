@@ -9,23 +9,24 @@
 import UIKit
 import Parse
 import ParseUI
-import Alamofire
+//import Alamofire
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
   
-    var  posts: [Post] = []
-    
+    var posts: [PFObject] = []
+    //var postposts: [PFObject] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //self.navigationItem.title = "Home"
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight  = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 350
+        tableView.estimatedRowHeight = 200
         
         
         refreshControl = UIRefreshControl()
@@ -37,28 +38,31 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view.
     }
     
-    
-    
-    @IBAction func onLogout(_ sender: Any) {
-        PFUser.logOut()
-        performSegue(withIdentifier: "logoutSegue", sender: nil)
-    }
-    
-    
-    @IBAction func onCamera(_ sender: Any) {
-        performSegue(withIdentifier: "postSegue", sender: nil)
-    }
-    
+    /*override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        fetchHome(completion: {(success: Bool, error: Error?) -> Void in
+            if success {
+                print ("successfully received data")
+            } else {
+                print (error?.localizedDescription ?? "no error")
+            }
+        })
+        
+    }*/
+  
     
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl)
     {
        fetchHome()
-       refreshControl.endRefreshing()
+      // refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func onLogout(_ sender: Any) {
+         self.performSegue(withIdentifier: "logoutSegue", sender: nil)
     }
     
     func fetchHome()
@@ -69,26 +73,36 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         query?.includeKey("author")
         query?.limit = 20
         
-        query?.findObjectsInBackground(block: {(posts, error) in
+        query?.findObjectsInBackground{ (posts: [PFObject]?, error: Error?) in
             if let posts = posts {
-                self.posts = posts as! [Post]
-                self.tableView.reloadData()
-            } else {
-                print(error?.localizedDescription as Any)
+                //print("Posts are: ", posts)
+                //self.postposts = posts
+                self.posts = posts
+               // self.tableView.reloadData()
+               // completion(true, nil)
+            } else if let error = error {
+                print(error.localizedDescription)
+               // print("Error! : ", error?.localizedDescription ?? "No localized description for error")
+                // handle error
+               // completion(false, error)
             }
-        })
+            self.tableView.reloadData()
+        }
+        self.refreshControl.endRefreshing()
     }
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
+       
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
-        let post = posts[indexPath.row]
-        
-        if let imageFile : PFFile = post.media {
+        //let post = posts[indexPath.row]
+        cell.instagramPost = posts[indexPath.row]
+        return cell
+       /* if let imageFile : PFFile = post.media {
             imageFile.getDataInBackground(block: {
                 (data, error) in
                 if error == nil {
@@ -103,7 +117,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             })
         }
         cell.captionLabel.text = post.caption
-        return cell
+        return cell*/
     }
 
 }

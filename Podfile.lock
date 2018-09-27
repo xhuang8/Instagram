@@ -1,7 +1,4 @@
 PODS:
-  - Alamofire (4.7.3)
-  - AlamofireImage (3.4.1):
-    - Alamofire (~> 4.7)
   - Bolts/Tasks (1.9.0)
   - Parse (1.17.1):
     - Parse/Core (= 1.17.1)
@@ -12,25 +9,20 @@ PODS:
     - Parse (~> 1.9)
 
 DEPENDENCIES:
-  - AlamofireImage (~> 3.3)
   - Parse
   - ParseUI
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
-    - AlamofireImage
     - Bolts
     - Parse
     - ParseUI
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   ParseUI: 2b37a0bc692a3e7666cf0c37b5521dfddd74a1af
 
-PODFILE CHECKSUM: 0a86bdb85802f81557f60ca59aacb89b4b65d41a
+PODFILE CHECKSUM: 5b861421fdf3987a0ecdad7136659f0d58199d8c
 
 COCOAPODS: 1.5.3
